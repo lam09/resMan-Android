@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="food_colors">
+        <item>@color/food0</item>
+        <item>@color/food1</item>
+        <item>@color/food2</item>
+        <item>@color/food3</item>
+        <item>@color/food4</item>
+        <item>@color/food5</item>
+        <item>@color/food6</item>
+        <item>@color/food7</item>
+        <item>@color/food8</item>
+        <item>@color/food9</item>
+        <item>@color/food10</item>
+        <item>@color/food11</item>
+    </array>
+
+</resources>

@@ -8,7 +8,7 @@ public class JsonService {
     public Product getProductInJSON() {
 
         Product product = new Product();
-        product.setName("iPad 3");
+        product.setTitle("iPad 3");
         product.setQty(999);
 
         return product;

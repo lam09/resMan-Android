@@ -45,8 +45,8 @@ public class Communicator {
                 socketio.on(Socket.EVENT_CONNECT, handleOnNewConnectionCreated);
                 socketio.on(Socket.EVENT_CONNECT_ERROR, handleOnConnectionError);
                 socketio.on(Socket.EVENT_DISCONNECT, handleOnDisconnection);
-              //  socketio.on("login",handleOnNewClientInit);
-                socketio.on("new-food", handleOnNewEvent1);
+              //  socket io.on("login",handleOnNewClientInit);
+              //  socketio.on("new-food", handleOnNewEvent1);
                 // socketio.on("new-food", handleOnNewEvent1);
               //  socketio.on("event2", handleOnNewEvent1);
                 socketio.connect();

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">FooApp</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">Name</string>
+    <string name="priceLabel">Price</string>
+    <string name="descriptionLabel">Description</string>
+    <string name="updateLabel">Update</string>
 </resources>

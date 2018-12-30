@@ -6,6 +6,7 @@ import lam.fooapp.communication.Communicator;
 
 public class MangoApplication extends Application {
 
+
     public static Communicator communicator;// = new Communicator();
 
 
@@ -18,8 +19,6 @@ public class MangoApplication extends Application {
             return;
         }
         super.onCreate();
-        System.out.print("App created");
-
-
+        System.out.println("App created");
     }
 }
