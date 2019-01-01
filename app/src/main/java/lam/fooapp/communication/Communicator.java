@@ -8,9 +8,8 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter.Listener;
 import lam.fooapp.Utils.Constant;
 import lam.fooapp.Utils.Utils;
-import lam.fooapp.communication.model.EventData;
-
-import org.apache.log4j.Logger;
+import lam.fooapp.communication.socketio.CustomListener;
+import lam.fooapp.model.EventData;
 
 
 import java.net.URISyntaxException;

@@ -1,4 +1,4 @@
-package lam.fooapp.communication;
+package lam.fooapp.communication.socketio;
 
 import io.socket.emitter.Emitter;
 import lam.fooapp.Utils.Utils;

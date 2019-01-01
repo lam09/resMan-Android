@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import lam.fooapp.Food;
+import lam.fooapp.model.Food;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
     public final static String DATABASE_NAME = "mango";

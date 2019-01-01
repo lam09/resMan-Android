@@ -3,7 +3,7 @@ package lam.fooapp.Utils;
 
 import com.google.gson.Gson;
 
-import lam.fooapp.communication.model.EventData;
+import lam.fooapp.model.EventData;
 
 public class Utils {
     public static Gson gson = new Gson();

@@ -3,6 +3,8 @@ package lam.fooapp.communication;
 
 import java.util.Random;
 
+import lam.fooapp.communication.rests.RestRequest;
+
 import static java.lang.Thread.sleep;
 
 public class Main  {

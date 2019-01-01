@@ -1,4 +1,4 @@
-package lam.fooapp;
+package lam.fooapp.model;
 
 import com.google.gson.Gson;
 

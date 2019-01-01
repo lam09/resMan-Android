@@ -1,4 +1,4 @@
-package lam.fooapp.communication;
+package lam.fooapp.communication.rests;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -10,7 +10,7 @@ public class RestRequest {
     public RestRequest (){
 
     }
-    public void sendRequest(String requestUrl){
+    public String sendRequest(String requestUrl){
         try{
             URL url= new URL(requestUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -29,10 +29,11 @@ public class RestRequest {
                 System.out.println(output);
                 builder.append(output);
             }
-          //  System.out.println(builder.toString());
+            return builder.toString();
         }
         catch (Exception e){
             e.printStackTrace();
+            return null;
         }
 
     }

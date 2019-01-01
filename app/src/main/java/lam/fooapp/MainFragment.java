@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import io.socket.emitter.Emitter;
+import lam.fooapp.model.Food;
 
 
 /**
@@ -37,15 +38,11 @@ public class MainFragment extends Fragment {
         // Required empty public constructor
         super();
     }
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MangoApplication.communicator.socketio.on("new-food",newFoodListener);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

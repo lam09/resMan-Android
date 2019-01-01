@@ -1,4 +1,4 @@
-package lam.fooapp.communication.model;
+package lam.fooapp.model;
 
 public class Client {
     String name;

@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import lam.fooapp.model.Food;
+
 public class FoodDetailFragment extends Fragment {
     Food food;
     public FoodDetailFragment()

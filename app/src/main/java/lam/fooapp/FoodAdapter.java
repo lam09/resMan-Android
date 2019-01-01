@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
+public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
 
     private List<String> mMessages;
     private int[] mUsernameColors;
@@ -20,15 +20,15 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     }
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater
                 .from(viewGroup.getContext())
                 .inflate(R.layout.item_food, viewGroup, false);
-        return new ViewHolder(v);
+        return new FoodViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull FoodViewHolder viewHolder, int i) {
         String message = mMessages.get(i);
         viewHolder.setFoodName(message);
     }
@@ -38,10 +38,11 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         return mMessages.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class FoodViewHolder extends RecyclerView.ViewHolder {
         private TextView foodNameView;
 
-        public ViewHolder(View itemView) {
+
+        public FoodViewHolder(View itemView) {
             super(itemView);
 
             foodNameView = (TextView) itemView.findViewById(R.id.foodName);
