@@ -11,7 +11,7 @@ public class Main  {
 
     public static void main(String[] args) {
       /*  Communicator communicator = new Communicator();
-        communicator.createSocket();
+        communicator.initSocketIO();
         communicator.initClient();
         */
       MediaDownloader mediaDownloader=new MediaDownloader();
@@ -28,7 +28,7 @@ public class Main  {
                 public void run() {
                     System.out.println("client ");
                     Communicator communicator = new Communicator(x.toString());
-                    if(!communicator.createSocket()) {
+                    if(!communicator.initSocketIO()) {
                         System.out.println("can not create new socket");
                         return;
                     }

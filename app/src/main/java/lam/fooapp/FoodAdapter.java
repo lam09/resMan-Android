@@ -8,14 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
+
+import lam.fooapp.model.Food;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
 
-    private List<String> mMessages;
+    private List<Food> mFoods;
     private int[] mUsernameColors;
-    public FoodAdapter(Context context, List<String> messages) {
-        mMessages = messages;
+    public FoodAdapter(Context context, List<Food> foods) {
+        mFoods = foods;
         mUsernameColors = context.getResources().getIntArray(R.array.food_colors);
     }
     @NonNull
@@ -29,23 +33,25 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull FoodViewHolder viewHolder, int i) {
-        String message = mMessages.get(i);
-        viewHolder.setFoodName(message);
+        Food food = mFoods.get(i);
+        viewHolder.setFoodName(food.getTitle());
+        viewHolder.setFoodSerial(food.getSerial().toString());
     }
 
     @Override
     public int getItemCount() {
-        return mMessages.size();
+        return mFoods.size();
     }
 
     public class FoodViewHolder extends RecyclerView.ViewHolder {
         private TextView foodNameView;
-
+        private TextView foodSerialView;
 
         public FoodViewHolder(View itemView) {
             super(itemView);
 
             foodNameView = (TextView) itemView.findViewById(R.id.foodName);
+            foodSerialView = (TextView) itemView.findViewById(R.id.foodSerial);
         }
         public void setFoodName(String username) {
             if (null == foodNameView) return;
@@ -53,6 +59,12 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             foodNameView.setTextColor(getUsernameColor(username));
         }
 
+        public void setFoodSerial(String serial)
+        {
+            if (null == foodNameView) return;
+            foodSerialView.setText(serial);
+            foodSerialView.setTextColor(getUsernameColor(serial));
+        }
         private int getUsernameColor(String username) {
             int hash = 7;
             for (int i = 0, len = username.length(); i < len; i++) {

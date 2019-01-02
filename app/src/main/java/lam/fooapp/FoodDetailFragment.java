@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
+
 import lam.fooapp.model.Food;
 
 public class FoodDetailFragment extends Fragment {
@@ -39,7 +41,7 @@ public class FoodDetailFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         String strtext = getArguments().getString("currentFood");
-        food=Food.fromJson(strtext);
+        food=new Gson().fromJson(strtext,Food.class);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 }

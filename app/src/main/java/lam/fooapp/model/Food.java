@@ -1,20 +1,35 @@
 package lam.fooapp.model;
 
-import com.google.gson.Gson;
+
+/**
+ * Created by a.lam.tuan on 17. 7. 2018.
+ */
 
 public class Food {
-    private Integer id;
+    private String id;
+
+    private Integer serial;
     private String title;
     private String price;
     private String description;
     private String type;
-    private static Gson gson = new Gson();
 
-    public Integer getId() {
+
+    public Food(){}
+
+    public Integer getSerial() {
+        return serial;
+    }
+
+    public void setSerial(Integer serial) {
+        this.serial = serial;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -50,13 +65,5 @@ public class Food {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return gson.toJson(this);
-    }
-
-    public static Food fromJson(String json)
-    {
-        return gson.fromJson(json,Food.class);
-    }
 }
+

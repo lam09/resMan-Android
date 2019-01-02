@@ -17,18 +17,21 @@ import java.util.UUID;
 
 public class Communicator {
     public Socket socketio;
+    public FoodApi foodApi;
     Manager socketManager;
     boolean connected=false;
     public String clientId;
     public Communicator()
     {
         clientId= UUID.randomUUID().toString();
+        initSocketIO();
+        foodApi = new SpringFoodApi();
     }
     public Communicator(String id)
     {
         clientId= id;
     }
-    public boolean createSocket() {
+    public boolean initSocketIO() {
         try {
             IO.Options opt=new IO.Options();
             opt.forceNew=true;
@@ -44,10 +47,6 @@ public class Communicator {
                 socketio.on(Socket.EVENT_CONNECT, handleOnNewConnectionCreated);
                 socketio.on(Socket.EVENT_CONNECT_ERROR, handleOnConnectionError);
                 socketio.on(Socket.EVENT_DISCONNECT, handleOnDisconnection);
-              //  socket io.on("login",handleOnNewClientInit);
-              //  socketio.on("new-food", handleOnNewEvent1);
-                // socketio.on("new-food", handleOnNewEvent1);
-              //  socketio.on("event2", handleOnNewEvent1);
                 socketio.connect();
             }
         } catch (URISyntaxException e) {
@@ -91,14 +90,6 @@ public class Communicator {
             System.out.println("client "+clientId+" recieved :"+objects[0].toString() + " latency "+latency);
         }
     };
- /*   Listener handleOnNewEvent2 = new Listener() {
-        public void call(Object... objects) {
-            EventData e = Utils.fromJson(objects[0].toString(),EventData.class);
-            long latency= System.currentTimeMillis()-e.timeStamp;
-            System.out.println("client "+clientId+" recieved :"+objects[0].toString() + " latency "+latency);        }
-    };
-*/
-
 
     public void initClient()
     {

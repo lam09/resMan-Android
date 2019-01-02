@@ -16,33 +16,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import io.socket.emitter.Emitter;
+import lam.fooapp.communication.rests.RestRequest;
 import lam.fooapp.model.Food;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MainFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- *
- */
-public class MainFragment extends Fragment {
-
+public class MainFoodFragment extends Fragment {
     private EndlessRecyclerViewScrollListener scrollListener;
-    private RecyclerView mMessagesView;
-    private ArrayList<String> mMessages = new ArrayList<String>();
+    private RecyclerView mFoodListView;
+    private ArrayList<Food> foodList = new ArrayList<Food>();
     private RecyclerView.Adapter mAdapter;
-    public MainFragment() {
+    public MainFoodFragment() {
         // Required empty public constructor
         super();
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MangoApplication.communicator.socketio.on("new-food",newFoodListener);
+
+        MangoApplication.communicator.foodApi.getFoods(0,5,onFoodDataCallback);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,27 +52,60 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mMessagesView = (RecyclerView) view.findViewById(R.id.mainRecycleView);
-        mMessagesView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mMessagesView.setAdapter(mAdapter);
+        mFoodListView = (RecyclerView) view.findViewById(R.id.mainRecycleView);
+        mFoodListView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mFoodListView.setAdapter(mAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
+        mFoodListView.setLayoutManager(linearLayoutManager);
         scrollListener=new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 loadNextDataFromApi(page);
             }
         };
+        mFoodListView.addOnScrollListener(scrollListener);
     }
     public void loadNextDataFromApi(Integer offset){
-
+        System.out.println("load next data from Api " + offset);
+        MangoApplication.communicator.foodApi.getFoods(offset,5,onFoodDataCallback);
     }
+
+
+    RestRequest.DataCallback<List<Food>> onFoodDataCallback = new RestRequest.DataCallback() {
+        @Override
+        public void onDataRecieved(final String result) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                   // System.out.println("Hello, I received a response from server: "+result);
+                    Type listType = new TypeToken<List<Food>>(){}.getType();
+                    List<Food>foodsReceived = (List<Food>)new Gson().fromJson(result,listType);
+                    foodList.addAll(foodsReceived);
+                    mAdapter.notifyDataSetChanged();
+                    //scrollToBottom();
+                }
+            });
+
+        }
+
+        @Override
+        public void onError() {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
+
+        }
+    };
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mAdapter = new FoodAdapter(context, null);
+        mAdapter = new FoodAdapter(context, foodList);
         if (context instanceof Activity){
-           // this.listener = (MainActivity) context;
+            // this.listener = (MainActivity) context;
         }
     }
 
@@ -87,7 +118,6 @@ public class MainFragment extends Fragment {
     public void onDestroy()
     {
         super.onDestroy();
-        MangoApplication.communicator.socketio.off("new-food",newFoodListener);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -114,29 +144,16 @@ public class MainFragment extends Fragment {
     }
 
 
-    private void addFood(String newFoodName) {
-        mMessages.add(newFoodName);
+    private void addFood(Food food) {
+        foodList.add(food);
 //        mAdapter.notifyItemInserted(mMessages.size() - 1);
-        if(mMessages.size()==10) mMessages.clear();
+        if(foodList.size()==10) foodList.clear();
         mAdapter.notifyDataSetChanged();
         scrollToBottom();
-
     }
     private void scrollToBottom() {
-        mMessagesView.scrollToPosition(mAdapter.getItemCount() - 1);
+        mFoodListView.scrollToPosition(mAdapter.getItemCount() - 1);
     }
 
-    private Emitter.Listener newFoodListener = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            final String text=args[0].toString();
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    System.out.println("VASDASDASDSSD");
-                    addFood("AAAAAAAAAAA");
-                }
-            });
-        }
-    };
+
 }

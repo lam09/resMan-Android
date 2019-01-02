@@ -56,7 +56,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         if(cursor!=null)
             cursor.moveToFirst();
         Food food = new Food();
-        food.setId(Integer.parseInt(cursor.getString(0)));
+        food.setSerial(Integer.parseInt(cursor.getString(0)));
         food.setTitle(cursor.getString(1));
         food.setType(cursor.getString(2));
         food.setDescription(cursor.getString(3));
@@ -72,7 +72,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             do{
                 Food food = new Food();
-                food.setId(Integer.parseInt(cursor.getColumnName(0)));
+                food.setSerial(Integer.parseInt(cursor.getColumnName(0)));
                 food.setTitle(cursor.getString(1));
                 food.setType(cursor.getString(2));
                 food.setDescription(cursor.getString(3));

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="lam.fooapp">
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!--<sys-permission android:title="android.permission.INTERACT_ACROSS_USERS_FULL" />-->
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".MangoApplication"
@@ -16,7 +15,6 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

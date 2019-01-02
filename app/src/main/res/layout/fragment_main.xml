@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
     android:orientation="vertical"
     tools:context=".MainFragment">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mainRecycleView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:paddingLeft="10px"
         android:paddingRight="10px"
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical" />
-    <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/frag_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <!--<LinearLayout-->
+    <!--android:orientation="vertical"-->
+    <!--android:id="@+id/frag_container"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"/>-->
 </LinearLayout>

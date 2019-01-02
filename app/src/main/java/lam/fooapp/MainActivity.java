@@ -7,8 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    RecyclerView.Adapter mRcvAdapter;
-    List<String> data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
