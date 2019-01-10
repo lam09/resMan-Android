@@ -7,4 +7,6 @@
     <string name="priceLabel">Price</string>
     <string name="descriptionLabel">Description</string>
     <string name="updateLabel">Update</string>
+    <string name="title_activity_order">OrderActivity</string>
+    <string name="title_activity_waiter">WaiterActivity</string>
 </resources>
