@@ -4,10 +4,16 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
@@ -62,6 +68,36 @@ public class RestRequest{
             e.printStackTrace();
             return null;
         }
+    }
+    public Object request(String url,Object data)throws MalformedURLException {
+        URL requestUrl=new URL(url);
+       try {
+           HttpURLConnection conn = (HttpURLConnection) requestUrl.openConnection();
+           conn.setRequestMethod("POST");
+           conn.setRequestProperty("Content-Type","application/json");
+           conn.setDoOutput(true);
+           conn.setDoInput(true);
+           OutputStream outputStream = conn.getOutputStream();
+           OutputStreamWriter writer = new OutputStreamWriter(outputStream,"UTF-8");
+           writer.write(data.toString());
+           writer.flush();
+           writer.close();
+           outputStream.close();
+
+           String result;
+           BufferedInputStream inputStream = new BufferedInputStream(conn.getInputStream());
+           ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+           int result2 = inputStream.read();
+           while (result2!=-1){
+               buffer.write((byte)result2);
+               result2=inputStream.read();
+           }
+           result=buffer.toString();
+           return result;
+       }catch (IOException e)
+       {
+           return null;
+       }
     }
     //TEST
     public static void main(String[] args){

@@ -3,11 +3,15 @@ package lam.fooapp;
 import android.app.Application;
 
 import lam.fooapp.communication.Communicator;
+import lam.fooapp.model.Order;
+import lam.fooapp.model.OrderForm;
 
 public class MangoApplication extends Application {
 
 
     public static Communicator communicator;// = new Communicator();
+
+    public static OrderForm currentOrderForm = null;
 
 
     @Override
