@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,7 +17,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import io.socket.emitter.Emitter;
-import lam.fooapp.model.Food;
+import lam.fooapp.activity.EndlessRecyclerViewScrollListener;
+import lam.fooapp.activity.order.FoodAdapter;
 
 
 /**
@@ -72,7 +71,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mAdapter = new FoodAdapter(context, null);
+        mAdapter = new FoodAdapter(context,null, null);
         if (context instanceof Activity){
            // this.listener = (MainActivity) context;
         }

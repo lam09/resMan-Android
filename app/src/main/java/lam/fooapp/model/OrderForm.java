@@ -4,6 +4,15 @@ public class OrderForm {
     Integer orderNo;
     Integer tableNo;
     Integer[] foodSerialList;
+    String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 
     public Integer getOrderNo() {
         return orderNo;

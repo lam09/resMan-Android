@@ -87,11 +87,11 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/foodOrderBtn"
+            android:id="@+id/addFoodToOrder"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="ORDER"
+            android:text="add to order"
             android:layout_weight="20"/>
     </LinearLayout>
 

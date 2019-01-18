@@ -47,10 +47,11 @@ public class RestRequest{
 
     public String sendRequest(String requestUrl){
         try{
+            System.out.println( "send url:"+requestUrl);
             URL url= new URL(requestUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Content-Type", "application/json");
             if (conn.getResponseCode() != 200) {
                 throw new RuntimeException("Failed : HTTP error code : "
                         + conn.getResponseCode());
@@ -69,9 +70,9 @@ public class RestRequest{
             return null;
         }
     }
-    public Object request(String url,Object data)throws MalformedURLException {
-        URL requestUrl=new URL(url);
+    public String request(String url,String jsonData) {
        try {
+           URL requestUrl=new URL(url);
            HttpURLConnection conn = (HttpURLConnection) requestUrl.openConnection();
            conn.setRequestMethod("POST");
            conn.setRequestProperty("Content-Type","application/json");
@@ -79,7 +80,7 @@ public class RestRequest{
            conn.setDoInput(true);
            OutputStream outputStream = conn.getOutputStream();
            OutputStreamWriter writer = new OutputStreamWriter(outputStream,"UTF-8");
-           writer.write(data.toString());
+           writer.write(jsonData);
            writer.flush();
            writer.close();
            outputStream.close();

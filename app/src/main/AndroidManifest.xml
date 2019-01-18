@@ -13,16 +13,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         </activity>
         <activity
-            android:name=".OrderActivity"
+            android:name=".activity.order.OrderActivity"
             android:label="@string/title_activity_order"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".WaiterActivity"
+            android:name=".activity.order.OrderListActivity"
+            android:label="@string/title_activity_order"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.WaiterActivity"
             android:label="@string/title_activity_waiter"
             android:theme="@style/AppTheme">
             <intent-filter>

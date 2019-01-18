@@ -1,4 +1,4 @@
-package lam.fooapp;
+package lam.fooapp.activity;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;

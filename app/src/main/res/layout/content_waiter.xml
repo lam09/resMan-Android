@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".WaiterActivity"
+    tools:context=".activity.WaiterActivity"
     tools:showIn="@layout/activity_waiter">
     <Button
         android:id="@+id/waiterNewOrder"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/order_list_btn"
         android:layout_width="240dp"
         android:layout_height="188dp"
         android:layout_marginStart="8dp"

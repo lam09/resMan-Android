@@ -7,7 +7,6 @@ package lam.fooapp.model;
 
 public class Food {
     private String id;
-
     private Integer serial;
     private String title;
     private String price;

@@ -1,27 +1,28 @@
-package lam.fooapp;
+package lam.fooapp.activity.order;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
+import lam.fooapp.R;
 import lam.fooapp.model.Food;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
 
-    private List<Food> mFoods;
+    OrderListListenner orderListListenner;
+    protected List<Food> mFoods;
     private int[] mUsernameColors;
-    public FoodAdapter(Context context, List<Food> foods) {
+    public FoodAdapter(Context context, List<Food> foods,OrderListListenner orderListListenner) {
         mFoods = foods;
         mUsernameColors = context.getResources().getIntArray(R.array.food_colors);
+        this.orderListListenner=orderListListenner;
     }
     @NonNull
     @Override
@@ -29,7 +30,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         View v = LayoutInflater
                 .from(viewGroup.getContext())
                 .inflate(R.layout.item_food, viewGroup, false);
-        return new FoodViewHolder(v);
+        return new FoodViewHolder(v,orderListListenner);
     }
 
     @Override
@@ -37,7 +38,9 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         Food food = mFoods.get(i);
 //        viewHolder.setFoodName(food.getTitle());
   //      viewHolder.setFoodSerial(food.getSerial().toString());
-        viewHolder.setFoodInfo(food);
+        viewHolder.setFood(food);
+     //   viewHolder.setFoodInfo(food);
+
     }
 
     @Override
@@ -47,14 +50,27 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
     public class FoodViewHolder extends RecyclerView.ViewHolder {
         private TextView foodNameView,foodSerialView,foodPriceView,foodTypeView;
-
-        public FoodViewHolder(View itemView) {
+        private OrderListListenner orderListListenner;
+        private Food food;
+        public FoodViewHolder(View itemView,OrderListListenner orderListListenner) {
             super(itemView);
-
+            this.orderListListenner = orderListListenner;
             foodNameView = (TextView) itemView.findViewById(R.id.foodName);
             foodSerialView = (TextView) itemView.findViewById(R.id.foodSerial);
             foodPriceView = (TextView) itemView.findViewById(R.id.foodPrice);
             foodTypeView = (TextView) itemView.findViewById(R.id.foodType);
+        }
+        public void setFood(final Food foodd){
+            this.food=foodd;
+            setFoodInfo(this.food);
+            Button addToOrderBtn = (Button) itemView.findViewById(R.id.addFoodToOrder);
+            addToOrderBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    orderListListenner.addFoodToOrderList(food);
+                }
+            });
+
         }
         public void setFoodInfo(Food food){
             if (null == foodNameView) return;

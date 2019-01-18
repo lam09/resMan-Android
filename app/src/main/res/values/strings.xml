@@ -9,4 +9,18 @@
     <string name="updateLabel">Update</string>
     <string name="title_activity_order">OrderActivity</string>
     <string name="title_activity_waiter">WaiterActivity</string>
+    <!-- Order activity-->
+    <string name="table">Table:</string>
+    <string name="order_number">Order Num:</string>
+    <string name="table_hint">Table number</string>
+    <string name="total">Total:</string>
+    <string name="no_food">No food selected</string>
+    <string name="with_food"> food(s) added</string>
+
+    <!-- Menu -->
+    <string name="today">Today</string>
+    <string name="all">Foods</string>
+    <string name="drink">Drinks</string>
+    <string name="soup">Soups</string>
+    <string name="desert">Desert</string>
 </resources>

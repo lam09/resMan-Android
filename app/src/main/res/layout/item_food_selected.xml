@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:gravity="fill_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="10px"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal|fill_horizontal|center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/food_selected_name"
+            android:layout_width="156dp"
+            android:layout_height="match_parent"
+            android:layout_weight="70"
+            android:fontFamily="sans-serif"
+            android:gravity="left"
+            android:text="TextView"
+            android:textColor="@android:color/background_dark"
+            android:textColorHighlight="@color/food5"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/selected_food_type"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:text="type"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/selected_food_price"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:text="@string/priceLabel"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:textStyle="bold|italic" />
+
+        <Button
+            android:id="@+id/food_remove_btn"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_weight="10"
+            android:background="@drawable/cancel"
+            android:textAlignment="viewEnd" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_weight="1"
+        android:background="?android:attr/listDivider" />
+
+</LinearLayout>
