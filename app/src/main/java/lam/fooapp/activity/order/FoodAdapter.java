@@ -1,6 +1,7 @@
 package lam.fooapp.activity.order;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -78,7 +79,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             foodNameView.setTextColor(getUsernameColor(food.getTitle()));
             if (null == foodSerialView) return;
             foodSerialView.setText(food.getSerial().toString());
-            foodSerialView.setTextColor(getUsernameColor(food.getSerial().toString()));
+            foodSerialView.setTextColor(Color.BLACK);
             if (null == foodPriceView) return;
             foodPriceView.setText(food.getPrice());
             foodPriceView.setTextColor(getUsernameColor(food.getPrice()));

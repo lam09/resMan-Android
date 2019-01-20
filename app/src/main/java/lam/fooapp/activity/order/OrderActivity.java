@@ -202,35 +202,35 @@ public class OrderActivity extends AppCompatActivity implements OrderListListenn
     };
 
 
-    private void makeFlyAnimation(ImageView targetView) {
-
-        RelativeLayout destView = (RelativeLayout) findViewById(R.id.bottomBarLayout);
-
-        new CircleAnimationUtil().attachActivity(this).setTargetView(targetView).setMoveDuration(500).setDestView(destView).setAnimationListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-               // addItemToCart();
-                Toast.makeText(OrderActivity.this, "Continue Shopping...", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        }).startAnimation();
-
-
-    }
+//    private void makeFlyAnimation(ImageView targetView) {
+//
+//        RelativeLayout destView = (RelativeLayout) findViewById(R.id.bottomBarLayout);
+//
+//        new CircleAnimationUtil().attachActivity(this).setTargetView(targetView).setMoveDuration(500).setDestView(destView).setAnimationListener(new Animator.AnimatorListener() {
+//            @Override
+//            public void onAnimationStart(Animator animation) {
+//
+//            }
+//
+//            @Override
+//            public void onAnimationEnd(Animator animation) {
+//               // addItemToCart();
+//                Toast.makeText(OrderActivity.this, "Continue Shopping...", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onAnimationCancel(Animator animation) {
+//
+//            }
+//
+//            @Override
+//            public void onAnimationRepeat(Animator animation) {
+//
+//            }
+//        }).startAnimation();
+//
+//
+//    }
 
 
     private void animate(View view)
@@ -293,9 +293,6 @@ public class OrderActivity extends AppCompatActivity implements OrderListListenn
         };
         foodListView.addOnScrollListener(scrollListener);
 
-
-
-
         orderView = (RecyclerView) findViewById(R.id.orderSelectedFoodsView);
         currentOrderAdapter = new OrderedFoodAdapter(getApplicationContext(),orderedFoods,this);
         orderView.setLayoutManager(new LinearLayoutManager(this.getApplicationContext()){
@@ -355,8 +352,6 @@ public class OrderActivity extends AppCompatActivity implements OrderListListenn
     }
 
 
-
-
     @Override
     public void addFoodToOrderList(final Food food) {
         runOnUiThread(new Runnable() {
@@ -384,5 +379,7 @@ public class OrderActivity extends AppCompatActivity implements OrderListListenn
         });
     }
 
-
+    public interface OnFilterOrder{
+        void onFilterSelected(Order.OrderState orderState);
+    }
 }

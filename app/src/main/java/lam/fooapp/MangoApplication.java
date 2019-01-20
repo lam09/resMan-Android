@@ -20,6 +20,7 @@ public class MangoApplication extends Application {
     public static ArrayList<Food> currentSelectedFoods = new ArrayList<>();
     public static ArrayList<Food> foods;
     public static Integer selectedTableNo = 0; //pult id
+    public static int[]orderStateColors;
 
     @Override
     public void onCreate() {
@@ -31,6 +32,8 @@ public class MangoApplication extends Application {
         }*/
         super.onCreate();
         System.out.println("App created");
+        orderStateColors = getApplicationContext().getResources().getIntArray(R.array.order_state_colors);
+
     }
     public static Double parser(String value)
     {
@@ -41,5 +44,9 @@ public class MangoApplication extends Application {
         catch (Exception e){
             return null;
         }
+    }
+    public static int getOrderStateColor(Order.OrderState orderState) {
+        if(orderState==null) return orderStateColors[0];
+        return orderStateColors[orderState.ordinal()+1];
     }
 }

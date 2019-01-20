@@ -22,6 +22,7 @@
             android:layout_weight="70"
             android:fontFamily="sans-serif"
             android:gravity="left"
+            android:inputType="textMultiLine|textImeMultiLine"
             android:text="TextView"
             android:textColor="@android:color/background_dark"
             android:textColorHighlight="@color/food5"

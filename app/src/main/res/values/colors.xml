@@ -15,4 +15,12 @@
     <color name="food9">#3824aa</color>
     <color name="food10">#a700ff</color>
     <color name="food11">#d300e7</color>
+    <!--order state color-->
+    <color name="all">#58dc00</color>
+    <color name="delivered">#d300e7</color>
+    <color name="waiting">#e21400</color>
+    <color name="completed">#008577</color>
+    <color name="cancelled">#00574B</color>
+
+
 </resources>

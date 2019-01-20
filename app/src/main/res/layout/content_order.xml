@@ -18,7 +18,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="100">
+
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
         <include layout="@layout/menu_bar"/>
+
+        <View
+            android:id="@+id/divider5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -38,6 +51,9 @@
                 android:id="@+id/orderSelectedFoodsView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="10dp"
                 android:layout_weight="10"
                 android:background="@android:color/background_light"
                 android:scrollbars="vertical"

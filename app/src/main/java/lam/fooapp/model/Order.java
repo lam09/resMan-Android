@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Order {
 
+    public enum OrderState{WAITING,DELIVERED,COMPLETED,CANCELLED}
 
     String id;
     Integer orderNo;
@@ -15,6 +16,15 @@ public class Order {
     Date date;
     List<OrderItem> order_items;
     Integer tableNo;
+    OrderState orderState = OrderState.WAITING;
+
+    public OrderState getOrderState() {
+        return orderState;
+    }
+
+    public void setOrderState(OrderState orderState) {
+        this.orderState = orderState;
+    }
 
     public Integer getTableNo() {
         return tableNo;

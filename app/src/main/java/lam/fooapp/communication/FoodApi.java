@@ -14,5 +14,5 @@ public interface FoodApi {
     List<String> getAllFood();
     String updateFood(String food);
     void sendOrder(OrderForm orderForm, RestRequest.DataCallback dataCallback );
-    void getOrderToday(RestRequest.DataCallback dataCallback);
+    void getOrderToday(Integer page, Integer pageSize, Order.OrderState orderState, RestRequest.DataCallback dataCallback);
 }

@@ -73,11 +73,11 @@ public class SpringFoodApi implements FoodApi {
     }
 
     @Override
-    public void getOrderToday(final RestRequest.DataCallback dataCallback) {
+    public void getOrderToday(final Integer page, final Integer pageSize, final Order.OrderState orderState, final RestRequest.DataCallback dataCallback) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = builder.getOrderUrl(0,10,null,null);
+                String url = builder.getOrderUrl(page,pageSize,orderState,null);
                 RestRequest restRequest = new RestRequest();
                 String result = restRequest.sendRequest(url);
                 if(result!=null)dataCallback.onDataRecieved(result);

@@ -4,13 +4,13 @@ public class OrderForm {
     Integer orderNo;
     Integer tableNo;
     Integer[] foodSerialList;
-    String state;
+    Order.OrderState state = Order.OrderState.WAITING;
 
-    public String getState() {
+    public Order.OrderState getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(Order.OrderState state) {
         this.state = state;
     }
 

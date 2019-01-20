@@ -59,7 +59,7 @@ public class CustomOrderDialog  extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView orderNumberTextView = (TextView)view.findViewById(R.id.order_number_view);
+        TextView orderNumberTextView = (TextView)view.findViewById(R.id.order_num_view);
         String title = getArguments().getString("orderNo", "0");
 
         orderNumberTextView.setText(title);
