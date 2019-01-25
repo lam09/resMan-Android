@@ -1,5 +1,6 @@
 package lam.fooapp.activity.order;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -7,7 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.List;
@@ -53,6 +57,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         private TextView foodNameView,foodSerialView,foodPriceView,foodTypeView;
         private OrderListListenner orderListListenner;
         private Food food;
+        Animation scale,move;
         public FoodViewHolder(View itemView,OrderListListenner orderListListenner) {
             super(itemView);
             this.orderListListenner = orderListListenner;
@@ -60,15 +65,20 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             foodSerialView = (TextView) itemView.findViewById(R.id.foodSerial);
             foodPriceView = (TextView) itemView.findViewById(R.id.foodPrice);
             foodTypeView = (TextView) itemView.findViewById(R.id.foodType);
+            scale = AnimationUtils.loadAnimation(itemView.getContext(),R.anim.gps_button_animation);
+            move = AnimationUtils.loadAnimation(itemView.getContext(),R.anim.move_animation);
         }
         public void setFood(final Food foodd){
             this.food=foodd;
             setFoodInfo(this.food);
-            Button addToOrderBtn = (Button) itemView.findViewById(R.id.addFoodToOrder);
+            final ImageButton addToOrderBtn = (ImageButton) itemView.findViewById(R.id.addFoodToOrder);
             addToOrderBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    addToOrderBtn.startAnimation(scale);
                     orderListListenner.addFoodToOrderList(food);
+                    ImageButton imageButton = new ImageButton(v.getContext());
+                    imageButton.startAnimation(move);
                 }
             });
 
