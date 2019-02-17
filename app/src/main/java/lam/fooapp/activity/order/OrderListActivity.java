@@ -26,6 +26,7 @@ import lam.fooapp.R;
 import lam.fooapp.activity.BasicMangoActivity;
 import lam.fooapp.activity.EndlessRecyclerViewScrollListener;
 import lam.fooapp.activity.WaiterActivity;
+import lam.fooapp.communication.Communicator;
 import lam.fooapp.communication.rests.RestRequest;
 import lam.fooapp.model.Order;
 
@@ -40,9 +41,9 @@ public class OrderListActivity extends BasicMangoActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list);
-        MangoApplication.communicator.foodApi.getOrderToday(0,5,orderStateFilter,onOrderListReceived);
+        MangoApplication.communicator.getOrderToday(0,5,orderStateFilter,onOrderListReceived);
     }
-    RestRequest.DataCallback<List<Order>> onOrderListReceived = new RestRequest.DataCallback<List<Order>>() {
+    Communicator.DataReceiverCallback<List<Order>> onOrderListReceived = new Communicator.DataReceiverCallback<List<Order>>() {
         @Override
         public void onDataRecieved(final String result) {
             runOnUiThread(new Runnable() {
@@ -111,7 +112,7 @@ public class OrderListActivity extends BasicMangoActivity {
         }
     }
     private void loadNextDataFromApi(int page) {
-        MangoApplication.communicator.foodApi.getOrderToday(page,5,orderStateFilter,onOrderListReceived);
+        MangoApplication.communicator.getOrderToday(page,5,orderStateFilter,onOrderListReceived);
     }
 
     @Override

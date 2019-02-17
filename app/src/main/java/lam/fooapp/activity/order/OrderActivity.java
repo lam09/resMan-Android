@@ -34,6 +34,7 @@ import lam.fooapp.activity.DoneOnEditorActionListener;
 import lam.fooapp.activity.EndlessRecyclerViewScrollListener;
 import lam.fooapp.MangoApplication;
 import lam.fooapp.R;
+import lam.fooapp.communication.Communicator;
 import lam.fooapp.communication.rests.RestRequest;
 import lam.fooapp.model.Food;
 import lam.fooapp.model.Order;
@@ -79,7 +80,7 @@ public class OrderActivity extends BasicMangoActivity implements OrderListListen
                 sendOrder();
             }
         });
-        MangoApplication.communicator.foodApi.getFoods(0,5,onFoodDataCallback);
+        MangoApplication.communicator.getFoods(0,5,onFoodDataCallback);
 
 
         tableNoEditText = (EditText)findViewById(R.id.table_no);
@@ -132,7 +133,7 @@ public class OrderActivity extends BasicMangoActivity implements OrderListListen
         }
 
         orderForm.setTableNo(Integer.parseInt(num));
-        MangoApplication.communicator.foodApi.sendOrder(orderForm,onOrderSent);
+        MangoApplication.communicator.sendOrder(orderForm,onOrderSent);
         orderSendBtnLock = true;
     }
 
@@ -166,7 +167,7 @@ public class OrderActivity extends BasicMangoActivity implements OrderListListen
         totalPriceTextView.setText("0.00");
     }
 
-    RestRequest.DataCallback<Order> onOrderSent = new RestRequest.DataCallback<Order>() {
+    Communicator.DataReceiverCallback <Order> onOrderSent = new Communicator.DataReceiverCallback <Order>() {
         @Override
         public void onDataRecieved(final String result) {
             runOnUiThread(new Runnable() {
@@ -282,11 +283,11 @@ public class OrderActivity extends BasicMangoActivity implements OrderListListen
 
     public void loadNextDataFromApi(Integer offset){
         System.out.println("load next data from Api " + offset);
-        MangoApplication.communicator.foodApi.getFoods(offset,5,onFoodDataCallback);
+        MangoApplication.communicator.getFoods(offset,5,onFoodDataCallback);
     }
 
 
-    RestRequest.DataCallback<List<Food>> onFoodDataCallback = new RestRequest.DataCallback<List<Food>>()  {
+    Communicator.DataReceiverCallback <List<Food>> onFoodDataCallback = new Communicator.DataReceiverCallback <List<Food>>()  {
         @Override
         public void onDataRecieved(final String result) {
             runOnUiThread(new Runnable() {

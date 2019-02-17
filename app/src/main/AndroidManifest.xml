@@ -29,7 +29,11 @@
             android:label="@string/title_activity_order"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.WaiterActivity"
+            android:name=".activity.admin.LoginActivity"
+            android:label="@string/title_activity_login"></activity>
+        <activity android:name=".activity.admin.SignupActivity" android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.admin.MainActivity"
             android:label="@string/title_activity_waiter"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -54,9 +58,7 @@
             android:exported="true" />
 
         <activity android:name=".activity.admin.FoodListActivity" />
-        <activity
-            android:name=".activity.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+
     </application>
 
 </manifest>

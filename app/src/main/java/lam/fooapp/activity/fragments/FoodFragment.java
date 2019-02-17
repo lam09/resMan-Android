@@ -20,6 +20,7 @@ import org.w3c.dom.Text;
 import lam.fooapp.MangoApplication;
 import lam.fooapp.R;
 import lam.fooapp.Utils.Utils;
+import lam.fooapp.communication.Communicator;
 import lam.fooapp.communication.rests.RestRequest;
 import lam.fooapp.model.Food;
 
@@ -67,11 +68,11 @@ public class FoodFragment extends Fragment {
                 foodNew.setPrice(price.getText().toString());
                 foodNew.setDescription(description.getText().toString());
                 name.clearFocus();price.clearFocus();description.clearFocus();
-                MangoApplication.communicator.foodApi.updateFood(foodNew,cb);
+                MangoApplication.communicator.updateFood(foodNew,cb);
             }
         });
     }
-    RestRequest.DataCallback cb = new RestRequest.DataCallback() {
+    Communicator.DataReceiverCallback cb = new Communicator.DataReceiverCallback() {
         @Override
         public void onDataRecieved(String result) {
             Food received = Utils.gson.fromJson(result,Food.class);

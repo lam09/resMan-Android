@@ -41,7 +41,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MangoApplication.communicator.socketio.on("new-food",newFoodListener);
+    //    MangoApplication.communicator.socketio.on("new-food",newFoodListener);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,7 +86,7 @@ public class MainFragment extends Fragment {
     public void onDestroy()
     {
         super.onDestroy();
-        MangoApplication.communicator.socketio.off("new-food",newFoodListener);
+     //   MangoApplication.communicator.socketio.off("new-food",newFoodListener);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

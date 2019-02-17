@@ -17,6 +17,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import lam.fooapp.communication.Communicator;
 import lam.fooapp.communication.FoodApi;
 import lam.fooapp.communication.SpringFoodApi;
 import lam.fooapp.model.Food;
@@ -26,13 +27,13 @@ public class RestRequest{
     public RestRequest (){
 
     }
-
+/*
     public interface DataCallback<DataType>{
         void onDataRecieved(String result);
         void onError();
     }
-
-    public void getData(final String url,final DataCallback dataCallback)
+*/
+    public void getData(final String url,final Communicator.DataReceiverCallback dataCallback)
     {
         new Thread(new Runnable() {
             @Override

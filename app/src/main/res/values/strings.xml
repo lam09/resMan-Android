@@ -18,7 +18,7 @@
     <string name="total">Total:</string>
     <string name="no_food">No food selected</string>
     <string name="with_food"> food(s) added</string>
-
+    <string name="action_settings">Settings</string>
     <!-- Menu -->
     <string name="today">Today</string>
     <string name="all">Foods</string>

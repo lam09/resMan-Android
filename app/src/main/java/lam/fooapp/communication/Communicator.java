@@ -9,71 +9,45 @@ import io.socket.emitter.Emitter.Listener;
 import lam.fooapp.Utils.Constant;
 import lam.fooapp.Utils.Utils;
 import lam.fooapp.communication.socketio.CustomListener;
+import lam.fooapp.model.AuthenticationRequest;
 import lam.fooapp.model.EventData;
+import lam.fooapp.model.Food;
+import lam.fooapp.model.Order;
+import lam.fooapp.model.OrderForm;
 
 
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.UUID;
 
 public class Communicator {
-    public Socket socketio;
-    public FoodApi foodApi;
-    Manager socketManager;
-    boolean connected=false;
-    public String clientId;
+
+    private FoodApi foodApi;
     public Communicator()
     {
-        clientId= UUID.randomUUID().toString();
-        //initSocketIO();
         foodApi = new SpringFoodApi();
     }
-    public Communicator(String id)
-    {
-        clientId= id;
-    }
-    public boolean initSocketIO() {
-        try {
-            IO.Options opt=new IO.Options();
-            opt.forceNew=true;
-            opt.reconnection=true;
-            opt.reconnectionDelay=1000;
-            opt.reconnectionDelayMax=5000;
-            opt.reconnectionAttempts=9999999;
-            socketio = IO.socket(Constant.SERVER_URL,opt);
-            System.out.println("connect to " + Constant.SERVER_URL);
-            socketManager=socketio.io();
-            if (socketio != null) {
-                System.out.println("created socket io");
-                socketio.on(Socket.EVENT_CONNECT, handleOnNewConnectionCreated);
-                socketio.on(Socket.EVENT_CONNECT_ERROR, handleOnConnectionError);
-                socketio.on(Socket.EVENT_DISCONNECT, handleOnDisconnection);
-                socketio.connect();
-            }
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return false;
-        }
-       // socketManager.reconnectionAttempts();
-        return true;
+
+    public void login(AuthenticationRequest authenticationRequest,Communicator.DataReceiverCallback receiver){
+        foodApi.login(authenticationRequest,receiver);
     }
 
+    public void getFoods(Integer page, Integer pageSize, DataReceiverCallback  dataCallback){
+        foodApi.getFoods(page,pageSize,dataCallback);
+    }
 
-    CustomListener<EventData> handleOnNewConnectionCreated = new CustomListener<EventData>(EventData.class) {
-        @Override
-        public void call(Object... args) {
-           // System
-            System.out.println("client connected");
-        }
-    };
-    Listener handleOnConnectionError = new Listener() {
-        public void call(Object... objects) {
+    public void updateFood(Food food, DataReceiverCallback  dataCallback){
+        foodApi.updateFood(food,dataCallback);
+    }
+    public void sendOrder(OrderForm orderForm, DataReceiverCallback  dataCallback ){
+        foodApi.sendOrder(orderForm,dataCallback);
+    }
+    public void getOrderToday(Integer page, Integer pageSize, Order.OrderState orderState, DataReceiverCallback  dataCallback){
+        foodApi.getOrderToday(page,pageSize,orderState,dataCallback);
+    }
 
-        }
-    };
-    Listener handleOnDisconnection = new Listener() {
-        public void call(Object... objects) {
-            System.out.println("client disconnected");
-        }
-    };
-
+    public interface DataReceiverCallback<DataType>{
+        void onDataRecieved(String result);
+        void onError();
+    }
 }

@@ -23,6 +23,7 @@ import java.util.List;
 
 import lam.fooapp.activity.EndlessRecyclerViewScrollListener;
 import lam.fooapp.activity.order.FoodAdapter;
+import lam.fooapp.communication.Communicator;
 import lam.fooapp.communication.rests.RestRequest;
 import lam.fooapp.model.Food;
 
@@ -39,7 +40,7 @@ public class MainFoodFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        MangoApplication.communicator.foodApi.getFoods(0,5,onFoodDataCallback);
+        MangoApplication.communicator.getFoods(0,5,onFoodDataCallback);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,11 +67,11 @@ public class MainFoodFragment extends Fragment {
     }
     public void loadNextDataFromApi(Integer offset){
         System.out.println("load next data from Api " + offset);
-        MangoApplication.communicator.foodApi.getFoods(offset,5,onFoodDataCallback);
+        MangoApplication.communicator.getFoods(offset,5,onFoodDataCallback);
     }
 
 
-    RestRequest.DataCallback<List<Food>> onFoodDataCallback = new RestRequest.DataCallback() {
+    Communicator.DataReceiverCallback<List<Food>> onFoodDataCallback = new Communicator.DataReceiverCallback() {
         @Override
         public void onDataRecieved(final String result) {
             getActivity().runOnUiThread(new Runnable() {

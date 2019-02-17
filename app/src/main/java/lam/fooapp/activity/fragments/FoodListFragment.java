@@ -37,6 +37,7 @@ import lam.fooapp.activity.order.OrderListActivity;
 import lam.fooapp.activity.order.OrderListListenner;
 import lam.fooapp.activity.order.OrderedFoodAdapter;
 import lam.fooapp.activity.order.TableEditDialog;
+import lam.fooapp.communication.Communicator;
 import lam.fooapp.communication.rests.RestRequest;
 import lam.fooapp.model.Food;
 import lam.fooapp.model.Order;
@@ -63,7 +64,7 @@ public class FoodListFragment extends Fragment implements OrderListListenner {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MangoApplication.communicator.foodApi.getFoods(0,5,onFoodDataCallback);
+        MangoApplication.communicator.getFoods(0,5,onFoodDataCallback);
         foodListAdapter = new FoodAdapter(view.getContext(), foodList,this);
         foodListView = (RecyclerView) view.findViewById(R.id.orderFoodMenuView);
         foodListView.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -81,12 +82,12 @@ public class FoodListFragment extends Fragment implements OrderListListenner {
 
     public void loadNextDataFromApi(Integer offset){
         System.out.println("load next data from Api " + offset);
-        MangoApplication.communicator.foodApi.getFoods(offset,5,onFoodDataCallback);
+        MangoApplication.communicator.getFoods(offset,5,onFoodDataCallback);
     }
 
 
 
-    RestRequest.DataCallback<List<Food>> onFoodDataCallback = new RestRequest.DataCallback<List<Food>>()  {
+    Communicator.DataReceiverCallback <List<Food>> onFoodDataCallback = new Communicator.DataReceiverCallback <List<Food>>()  {
         @Override
         public void onDataRecieved(final String result) {
             getActivity().runOnUiThread(new Runnable() {
