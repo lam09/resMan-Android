@@ -52,8 +52,19 @@ public class SpringFoodApi implements FoodApi {
     }
 
     @Override
-    public String updateFood(String food) {
-        return null;
+    public void updateFood(final Food food,final RestRequest.DataCallback cb) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String url = Constant.MAIN_SERVER_URL+"food/update";
+                RestRequest restRequest = new RestRequest();
+                String jsonData = new Gson().toJson(food,Food.class);
+                System.out.println("sending "+jsonData);
+                String result = restRequest.request(url,jsonData);
+                if(result!=null)cb.onDataRecieved(result);
+                else cb.onError();
+            }
+        }).start();
     }
 
     @Override

@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import lam.fooapp.MangoApplication;
 import lam.fooapp.R;
 import lam.fooapp.model.Order;
@@ -25,12 +27,11 @@ public class CustomOrderDialog  extends DialogFragment {
         this.order = order;
     }
 
-    public static CustomOrderDialog newInstance(String orderNo) {
+    public static CustomOrderDialog newInstance(String orderJson) {
         CustomOrderDialog frag = new CustomOrderDialog();
         Bundle args = new Bundle();
-        args.putString("orderNo", orderNo);
+        args.putString("orderJson", orderJson);
         frag.setArguments(args);
-//        frag.setOrder(orderNo);
         return frag;
     }
 
@@ -58,10 +59,17 @@ public class CustomOrderDialog  extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        String orderJson = getArguments().getString("orderJson", "0");
+        order = new Gson().fromJson(orderJson,Order.class);
+        TextView orderNumberTextView = (TextView)view.findViewById(R.id.order_confirm_dialog_num);
+        orderNumberTextView.setText(order.getOrderNo().toString());
+        Button ok = (Button) view.findViewById(R.id.order_dialog_btn_ok);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
 
-        TextView orderNumberTextView = (TextView)view.findViewById(R.id.order_num_view);
-        String title = getArguments().getString("orderNo", "0");
-
-        orderNumberTextView.setText(title);
     }
 }

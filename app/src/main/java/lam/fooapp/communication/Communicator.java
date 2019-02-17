@@ -24,7 +24,7 @@ public class Communicator {
     public Communicator()
     {
         clientId= UUID.randomUUID().toString();
-        initSocketIO();
+        //initSocketIO();
         foodApi = new SpringFoodApi();
     }
     public Communicator(String id)
@@ -75,44 +75,5 @@ public class Communicator {
             System.out.println("client disconnected");
         }
     };
-    Listener handleOnNewClientInit = new Listener() {
-        public void call(Object... objects) {
-            System.out.println(objects.length + "handleOnNewClientInit client "+clientId+" recieved :"+objects[0].toString());
-            Ack ack = (Ack) objects[objects.length - 1];
-            ack.call("success");
-        }
-    };
-
-    Listener handleOnNewEvent1 = new Listener() {
-        public void call(Object... objects) {
-            EventData e = Utils.fromJson(objects[0].toString(),EventData.class);
-            long latency= System.currentTimeMillis()-e.timeStamp;
-            System.out.println("client "+clientId+" recieved :"+objects[0].toString() + " latency "+latency);
-        }
-    };
-
-    public void initClient()
-    {
-        System.out.println("client initialize "+clientId);
-        socketio.emit("init",Utils.toJson(new EventData(clientId,"login")));
-      /*  socketio.emit("init", new EventData(clientId, "init"), new Ack() {
-            public void call(Object... args) {
-                System.out.println(args[0].toString());
-            }
-        });
-*/    }
-    public void sendEvent(String event)
-    {
-       // socketio.emit(event, Utils.toJson(new EventData(clientId, "new-client")).toString());
-        socketio.emit(event, Utils.toJson(new EventData(clientId, "new-client")).toString(), new Ack() {
-            public void call(Object... args) {
-                System.out.println(System.currentTimeMillis()+" event success sent" + args[0].toString());
-            }
-        });
-    }
-    public void registerEventListener(String eventName, Listener listener)
-    {
-        socketio.on(eventName,listener);
-    }
 
 }

@@ -13,11 +13,12 @@ import android.view.View;
 import android.widget.Button;
 
 import lam.fooapp.R;
+import lam.fooapp.activity.admin.FoodListActivity;
 import lam.fooapp.activity.order.OrderListActivity;
 import lam.fooapp.activity.order.TableEditDialog;
 import lam.fooapp.activity.order.OrderActivity;
 
-public class WaiterActivity extends AppCompatActivity {
+public class WaiterActivity extends BasicMangoActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +46,14 @@ public class WaiterActivity extends AppCompatActivity {
         orderListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivity(new Intent(WaiterActivity.this,OrderListActivity.class));
+            }
+        });
+        Button adminBtn = (Button) findViewById(R.id.adminBtn);
+        adminBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(WaiterActivity.this,FoodListActivity.class));
             }
         });
     }

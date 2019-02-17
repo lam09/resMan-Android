@@ -1,5 +1,6 @@
 package lam.fooapp.activity.order;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,11 +23,13 @@ import java.util.List;
 
 import lam.fooapp.MangoApplication;
 import lam.fooapp.R;
+import lam.fooapp.activity.BasicMangoActivity;
 import lam.fooapp.activity.EndlessRecyclerViewScrollListener;
+import lam.fooapp.activity.WaiterActivity;
 import lam.fooapp.communication.rests.RestRequest;
 import lam.fooapp.model.Order;
 
-public class OrderListActivity extends AppCompatActivity {
+public class OrderListActivity extends BasicMangoActivity {
     RecyclerView orderListView;
     RecyclerView.Adapter orderListAdapter;
     EndlessRecyclerViewScrollListener scrollListener;
@@ -111,4 +114,11 @@ public class OrderListActivity extends AppCompatActivity {
         MangoApplication.communicator.foodApi.getOrderToday(page,5,orderStateFilter,onOrderListReceived);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this,WaiterActivity.class);
+        startActivity(intent);
+
+        super.onBackPressed();
+    }
 }

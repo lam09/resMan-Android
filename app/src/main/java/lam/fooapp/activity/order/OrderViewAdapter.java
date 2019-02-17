@@ -55,7 +55,8 @@ public class OrderViewAdapter extends RecyclerView.Adapter<OrderViewAdapter.Orde
     public OrderViewCardHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater
                 .from(viewGroup.getContext())
-                .inflate(R.layout.order_view_expandablecard, viewGroup, false);
+                .inflate(R.layout.order_view_card, viewGroup, false);
+//                .inflate(R.layout.order_view_expandablecard, viewGroup, false);
         return new OrderViewAdapter.OrderViewCardHolder(v,onItemClickListener);
     }
 

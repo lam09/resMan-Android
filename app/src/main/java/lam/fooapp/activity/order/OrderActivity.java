@@ -28,6 +28,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import lam.fooapp.activity.BasicMangoActivity;
 import lam.fooapp.activity.CircleAnimationUtil;
 import lam.fooapp.activity.DoneOnEditorActionListener;
 import lam.fooapp.activity.EndlessRecyclerViewScrollListener;
@@ -38,7 +39,7 @@ import lam.fooapp.model.Food;
 import lam.fooapp.model.Order;
 import lam.fooapp.model.OrderForm;
 
-public class OrderActivity extends AppCompatActivity implements OrderListListenner {
+public class OrderActivity extends BasicMangoActivity implements OrderListListenner {
     private EndlessRecyclerViewScrollListener scrollListener;
     RecyclerView foodListView,orderView;
     private RecyclerView.Adapter foodListAdapter,currentOrderAdapter;
@@ -60,12 +61,12 @@ public class OrderActivity extends AppCompatActivity implements OrderListListenn
         setContentView(R.layout.activity_order);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         bottomBarLayout = (View) findViewById(R.id.bottomBarLayout);
-        bottomBarLayout.setOnClickListener(new View.OnClickListener() {
+      /*  bottomBarLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 animate(v);
             }
-        });
+        });*/
         setSupportActionBar(toolbar);
 
 
@@ -159,7 +160,7 @@ public class OrderActivity extends AppCompatActivity implements OrderListListenn
     {
         MangoApplication.currentSelectedFoods.clear();
         tableNoEditText.setText("");
-        orderView.animate().translationY(orderView.getHeight());
+       // orderView.animate().translationY(orderView.getHeight());
         foodListAdapter.notifyDataSetChanged();
         foodCountTextView.setText(R.string.no_food);
         totalPriceTextView.setText("0.00");
@@ -179,7 +180,7 @@ public class OrderActivity extends AppCompatActivity implements OrderListListenn
                     Order orderReceived = (Order) new Gson().fromJson(result,orderType);
 
                     FragmentManager fm = getSupportFragmentManager();
-                    CustomOrderDialog editNameDialogFragment = CustomOrderDialog.newInstance(orderReceived.getOrderNo().toString());
+                    CustomOrderDialog editNameDialogFragment = CustomOrderDialog.newInstance(result);
                     editNameDialogFragment.show(fm, "fragment_edit_name");
 
                     orderSendBtnLock = false;
@@ -202,38 +203,7 @@ public class OrderActivity extends AppCompatActivity implements OrderListListenn
     };
 
 
-//    private void makeFlyAnimation(ImageView targetView) {
-//
-//        RelativeLayout destView = (RelativeLayout) findViewById(R.id.bottomBarLayout);
-//
-//        new CircleAnimationUtil().attachActivity(this).setTargetView(targetView).setMoveDuration(500).setDestView(destView).setAnimationListener(new Animator.AnimatorListener() {
-//            @Override
-//            public void onAnimationStart(Animator animation) {
-//
-//            }
-//
-//            @Override
-//            public void onAnimationEnd(Animator animation) {
-//               // addItemToCart();
-//                Toast.makeText(OrderActivity.this, "Continue Shopping...", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onAnimationCancel(Animator animation) {
-//
-//            }
-//
-//            @Override
-//            public void onAnimationRepeat(Animator animation) {
-//
-//            }
-//        }).startAnimation();
-//
-//
-//    }
-
-
-    private void animate(View view)
+ /*   private void animate(View view)
     {
          if(!orderShown) {
             System.out.println("showing order view");
@@ -252,7 +222,7 @@ public class OrderActivity extends AppCompatActivity implements OrderListListenn
         }
     }
 
-
+*/
 
 
 
@@ -272,7 +242,12 @@ public class OrderActivity extends AppCompatActivity implements OrderListListenn
         return true;
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
 
+    }
     @Override
     protected void onStart() {
         super.onStart();

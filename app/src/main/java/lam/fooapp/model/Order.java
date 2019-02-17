@@ -74,4 +74,10 @@ public class Order {
         this.time = time;
     }
 
+    public String toNotifyView(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("No: " + orderNo);
+        builder.append(order_items.get(0).getTitle() + "...");
+        return builder.toString();
+    }
 }
