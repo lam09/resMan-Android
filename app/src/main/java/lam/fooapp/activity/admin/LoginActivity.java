@@ -1,6 +1,8 @@
 package lam.fooapp.activity.admin;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,10 +18,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import lam.fooapp.MangoApplication;
 import lam.fooapp.R;
+import lam.fooapp.Utils.Utils;
+import lam.fooapp.activity.BasicMangoActivity;
 import lam.fooapp.communication.Communicator;
 import lam.fooapp.model.AuthenticationRequest;
+import lam.fooapp.model.AuthenticationResponse;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BasicMangoActivity implements Communicator.DataReceiverCallback{
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
@@ -32,7 +37,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentLayout(R.layout.activity_login);
+
         ButterKnife.bind(this);
         _emailText = (EditText) findViewById(R.id.input_email);
         _passwordText = (EditText) findViewById(R.id.input_password);
@@ -87,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
         AuthenticationRequest request = new AuthenticationRequest();
         request.setUsername(email);
         request.setPassword(password);
-        MangoApplication.communicator.login(request,onLogin);
+        MangoApplication.communicator.login(request,this);
    /*     new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
@@ -98,32 +104,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }, 3000);*/
     }
-
-    Communicator.DataReceiverCallback onLogin = new Communicator.DataReceiverCallback() {
-        @Override
-        public void onDataRecieved(String username) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    // On complete call either onLoginSuccess or onLoginFailed
-                    onLoginSuccess();
-                    // onLoginFailed();
-                    progressDialog.dismiss();
-                }
-            });
-        }
-
-        @Override
-        public void onError() {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    progressDialog.dismiss();
-                    onLoginFailed();
-                }
-            });
-        }
-    };
 
 
     @Override
@@ -176,5 +156,36 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+    @Override
+    public void onDataRecieved(final String result) {
+      runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+              AuthenticationResponse res = Utils.gson.fromJson(result,AuthenticationResponse.class);
+              SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.app_name),Context.MODE_PRIVATE);//getPreferences(Context.MODE_PRIVATE);
+              SharedPreferences.Editor editor = sharedPref.edit();
+              editor.putString(getString(R.string.saved_token), res.getToken());
+              editor.commit();
+
+              // On complete call either onLoginSuccess or onLoginFailed
+              onLoginSuccess();
+              // onLoginFailed();
+              progressDialog.dismiss();
+          }
+      });
+
+    }
+
+    @Override
+    public void onError() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+                onLoginFailed();
+            }
+        });
     }
 }

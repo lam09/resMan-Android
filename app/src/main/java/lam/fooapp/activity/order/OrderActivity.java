@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -59,7 +60,13 @@ public class OrderActivity extends BasicMangoActivity implements OrderListListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order);
+
+      //  FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
+       // getLayoutInflater().inflate(R.layout.activity_order,frameLayout);
+//        frameLayout.addView(R.layout.activity_order);
+
+        setContentLayout(R.layout.activity_order);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         bottomBarLayout = (View) findViewById(R.id.bottomBarLayout);
       /*  bottomBarLayout.setOnClickListener(new View.OnClickListener() {

@@ -3,7 +3,16 @@ package lam.fooapp.communication;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.apache.http.HttpHeaders;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 import lam.fooapp.Utils.Constant;
@@ -26,6 +35,7 @@ public class SpringFoodApi implements FoodApi {
         restRequest = new RestRequest();
     }
 
+
     @Override
     public void login(final AuthenticationRequest authenticationRequest,final Communicator.DataReceiverCallback receiver) {
         new Thread(new Runnable() {
@@ -39,13 +49,45 @@ public class SpringFoodApi implements FoodApi {
                 if(result!=null){
                     AuthenticationResponse res = gson.fromJson(result,AuthenticationResponse.class);
                     token = res.getToken();
-                    receiver.onDataRecieved(res.getUsername());
+                    receiver.onDataRecieved(result);
                 }
                 else {
                     receiver.onError();
                 }
             }
         }).start();
+    }
+
+    @Override
+    public void authenticate(final String token, final Communicator.DataReceiverCallback receiver) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    URL url= new URL(Constant.MAIN_SERVER_URL+"auth/me");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("GET");
+                    conn.setRequestProperty("Content-Type", "application/json");
+                    conn.setRequestProperty("Authorization", "Bearer "+token);
+                    if (conn.getResponseCode() != 200) {
+                        throw new RuntimeException("Failed : HTTP error code : "
+                                + conn.getResponseCode());
+                    }
+                    BufferedReader br = new BufferedReader(new InputStreamReader(
+                            (conn.getInputStream())));
+                    StringBuilder builder = new StringBuilder();
+                    String output;
+                    while ((output=br.readLine())!=null){
+                        builder.append(output);
+                    }
+                    receiver.onDataRecieved(builder.toString());
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    receiver.onError();
+                }
+        }}
+        ).start();
     }
 
     @Override

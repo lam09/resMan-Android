@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
@@ -40,7 +41,9 @@ public class OrderListActivity extends BasicMangoActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_list);
+        FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
+        getLayoutInflater().inflate(R.layout.activity_order_list,frameLayout);
+      //  setContentView(R.layout.activity_order_list);
         MangoApplication.communicator.getOrderToday(0,5,orderStateFilter,onOrderListReceived);
     }
     Communicator.DataReceiverCallback<List<Order>> onOrderListReceived = new Communicator.DataReceiverCallback<List<Order>>() {

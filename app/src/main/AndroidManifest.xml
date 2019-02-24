@@ -18,9 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
             android:name=".activity.order.OrderActivity"
             android:label="@string/title_activity_order"
             android:theme="@style/AppTheme" />
@@ -28,14 +25,17 @@
             android:name=".activity.order.OrderListActivity"
             android:label="@string/title_activity_order"
             android:theme="@style/AppTheme" />
+        <activity android:name=".activity.WaiterActivity"
+            android:label="Waiter"/>
         <activity
             android:name=".activity.admin.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme"/>
         <activity android:name=".activity.admin.SignupActivity" android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.admin.MainActivity"
-            android:label="@string/title_activity_waiter"
-            android:theme="@style/AppTheme">
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

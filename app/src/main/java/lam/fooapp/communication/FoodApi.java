@@ -10,9 +10,8 @@ import lam.fooapp.model.OrderForm;
 
 public interface FoodApi {
     String getFoodById(String id);
-//    List<Food> getFoods(Integer page, Integer pageSize, RestRequest.DataCallback dataCallback);
     public void login(AuthenticationRequest authenticationRequest,Communicator.DataReceiverCallback receiver);
-
+    public void authenticate(String token, Communicator.DataReceiverCallback receiver);
     public void getFoods(Integer page, Integer pageSize, Communicator.DataReceiverCallback  dataCallback);
 
     List<String> getAllFood();

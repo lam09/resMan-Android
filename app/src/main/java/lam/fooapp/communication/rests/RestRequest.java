@@ -4,6 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 
+import org.apache.http.HttpHeaders;
+
+import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.impl.client.HttpClients;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -17,6 +22,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import lam.fooapp.Utils.Constant;
 import lam.fooapp.communication.Communicator;
 import lam.fooapp.communication.FoodApi;
 import lam.fooapp.communication.SpringFoodApi;
@@ -45,6 +51,9 @@ public class RestRequest{
             }
         }).start();
     }
+
+
+
 
     public String sendRequest(String requestUrl){
         try{

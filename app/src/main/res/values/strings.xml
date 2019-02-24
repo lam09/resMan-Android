@@ -38,4 +38,15 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+
+    <!--Sidebar menu options-->
+    <string name="nav_home">Home</string>
+    <string name="nav_manager">Manager</string>
+    <string name="nav_waiter">Waiter</string>
+    <string name="nav_signin">Sign in</string>
+    <string name="nav_logout">Logout</string>
+    <string name="create_restaurant">Create Restaurant</string>
+    <string name="my_restaurant">My Restaurant</string>
+    <string name="saved_token">Token</string>
 </resources>

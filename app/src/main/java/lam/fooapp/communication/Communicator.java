@@ -31,6 +31,9 @@ public class Communicator {
     public void login(AuthenticationRequest authenticationRequest,Communicator.DataReceiverCallback receiver){
         foodApi.login(authenticationRequest,receiver);
     }
+    public void authenticateByToken(String token, DataReceiverCallback receiver){
+        foodApi.authenticate(token,receiver);
+    }
 
     public void getFoods(Integer page, Integer pageSize, DataReceiverCallback  dataCallback){
         foodApi.getFoods(page,pageSize,dataCallback);
