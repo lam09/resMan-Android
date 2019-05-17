@@ -35,7 +35,7 @@ public class MainActivity extends BasicMangoActivity  implements Communicator.Da
         String defaultValue = "";
         String token = sharedPref.getString(getString(R.string.saved_token), defaultValue);
 
-        if(username==null){
+        if(MangoApplication.currentAccount==null){
             MangoApplication.communicator.authenticateByToken(token,this);
         }
     }

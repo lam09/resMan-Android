@@ -1,5 +1,6 @@
 package lam.fooapp;
 
+import android.accounts.Account;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.app.NotificationChannel;
@@ -27,6 +28,7 @@ public class MangoApplication extends Application {
     public static NumberFormat format = NumberFormat.getInstance();
     public static DateTimeFormatter formatter;// = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     public static Communicator communicator;// = new Communicator();
+    public static Account currentAccount=null;
     public static OrderForm currentOrderForm = null;
     public static ArrayList<Food> currentSelectedFoods = new ArrayList<>();
     public static ArrayList<Food> foods;
