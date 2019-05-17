@@ -12,9 +12,11 @@ import android.view.MenuItem;
 
 import lam.fooapp.MangoApplication;
 import lam.fooapp.R;
+import lam.fooapp.Utils.Utils;
 import lam.fooapp.activity.BasicMangoActivity;
 import lam.fooapp.communication.AuthenticationTask;
 import lam.fooapp.communication.Communicator;
+import lam.fooapp.model.Account;
 
 
 public class MainActivity extends BasicMangoActivity  implements Communicator.DataReceiverCallback{
@@ -35,7 +37,7 @@ public class MainActivity extends BasicMangoActivity  implements Communicator.Da
         String defaultValue = "";
         String token = sharedPref.getString(getString(R.string.saved_token), defaultValue);
 
-        if(username==null){
+        if(MangoApplication.user_account==null){
             MangoApplication.communicator.authenticateByToken(token,this);
         }
     }
@@ -44,7 +46,8 @@ public class MainActivity extends BasicMangoActivity  implements Communicator.Da
 
     @Override
     public void onDataRecieved(String result) {
-
+        System.out.print(result);
+        MangoApplication.user_account = Utils.fromJson(result, Account.class);
     }
 
     @Override

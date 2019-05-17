@@ -23,6 +23,7 @@ import lam.fooapp.model.AuthenticationResponse;
 import lam.fooapp.model.Food;
 import lam.fooapp.model.Order;
 import lam.fooapp.model.OrderForm;
+import lam.fooapp.model.RestaurantRegisterForm;
 
 
 public class SpringFoodApi implements FoodApi {
@@ -38,9 +39,7 @@ public class SpringFoodApi implements FoodApi {
 
     @Override
     public void login(final AuthenticationRequest authenticationRequest,final Communicator.DataReceiverCallback receiver) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+        new Thread(() ->{
                 String url = Constant.MAIN_SERVER_URL+"auth/signin";
                 RestRequest restRequest = new RestRequest();
                 String jsonData = gson.toJson(authenticationRequest,AuthenticationRequest.class);
@@ -54,8 +53,7 @@ public class SpringFoodApi implements FoodApi {
                 else {
                     receiver.onError();
                 }
-            }
-        }).start();
+            }).start();
     }
 
     @Override
@@ -87,6 +85,39 @@ public class SpringFoodApi implements FoodApi {
                     receiver.onError();
                 }
         }}
+        ).start();
+    }
+
+    @Override
+    public void createNewRestaurant(final RestaurantRegisterForm form,final Communicator.DataReceiverCallback receiver) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    URL url= new URL(Constant.MAIN_SERVER_URL+"auth/me");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("GET");
+                    conn.setRequestProperty("Content-Type", "application/json");
+                    conn.setRequestProperty("Authorization", "Bearer "+token);
+                    if (conn.getResponseCode() != 200) {
+                        throw new RuntimeException("Failed : HTTP error code : "
+                                + conn.getResponseCode());
+                    }
+                    if(conn.getResponseCode() == 403) receiver.onNoAcces();
+                    BufferedReader br = new BufferedReader(new InputStreamReader(
+                            (conn.getInputStream())));
+                    StringBuilder builder = new StringBuilder();
+                    String output;
+                    while ((output=br.readLine())!=null){
+                        builder.append(output);
+                    }
+                    receiver.onDataRecieved(builder.toString());
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    receiver.onError();
+                }
+            }}
         ).start();
     }
 

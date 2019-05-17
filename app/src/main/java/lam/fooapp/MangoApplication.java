@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import lam.fooapp.communication.Communicator;
+import lam.fooapp.model.Account;
 import lam.fooapp.model.Food;
 import lam.fooapp.model.Order;
 import lam.fooapp.model.OrderForm;
@@ -27,6 +28,7 @@ public class MangoApplication extends Application {
     public static NumberFormat format = NumberFormat.getInstance();
     public static DateTimeFormatter formatter;// = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     public static Communicator communicator;// = new Communicator();
+    public static Account user_account=null;
     public static OrderForm currentOrderForm = null;
     public static ArrayList<Food> currentSelectedFoods = new ArrayList<>();
     public static ArrayList<Food> foods;
