@@ -2,9 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="lam.fooapp">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -17,6 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.admin.TestGoogleLoginActivity"></activity>
+        <activity android:name=".activity.admin.RegisterRestaurantActivity" />
         <activity
             android:name=".activity.order.OrderActivity"
             android:label="@string/title_activity_order"
@@ -25,13 +26,16 @@
             android:name=".activity.order.OrderListActivity"
             android:label="@string/title_activity_order"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.WaiterActivity"
-            android:label="Waiter"/>
+        <activity
+            android:name=".activity.WaiterActivity"
+            android:label="Waiter" />
         <activity
             android:name=".activity.admin.LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".activity.admin.SignupActivity" android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.admin.SignupActivity"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.admin.MainActivity"
             android:label="@string/app_name"
@@ -58,7 +62,6 @@
             android:exported="true" />
 
         <activity android:name=".activity.admin.FoodListActivity" />
-
     </application>
 
 </manifest>

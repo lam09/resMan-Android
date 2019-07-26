@@ -52,5 +52,8 @@ public class Communicator {
     public interface DataReceiverCallback<DataType>{
         void onDataRecieved(String result);
         void onError();
+        default void onNoAcces(){
+            return;
+        };
     }
 }
