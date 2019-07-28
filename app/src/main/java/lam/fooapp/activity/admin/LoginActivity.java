@@ -69,7 +69,7 @@ public class LoginActivity extends BasicMangoActivity implements Communicator.Da
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
-
+/*
         //login by gmail
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -78,7 +78,7 @@ public class LoginActivity extends BasicMangoActivity implements Communicator.Da
                 .build();
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
+*/
 
         findViewById(R.id.sign_in_button).setOnClickListener(this);
     }
@@ -220,11 +220,15 @@ public class LoginActivity extends BasicMangoActivity implements Communicator.Da
       runOnUiThread(new Runnable() {
           @Override
           public void run() {
+              System.out.println("login response "+result);
               AuthenticationResponse res = Utils.gson.fromJson(result,AuthenticationResponse.class);
-              SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.app_name),Context.MODE_PRIVATE);//getPreferences(Context.MODE_PRIVATE);
-              SharedPreferences.Editor editor = sharedPref.edit();
-              editor.putString(getString(R.string.saved_token), res.getToken());
+              MangoApplication.current_username = res.getUsername();
+              MangoApplication.current_token = res.getToken();
+
+              SharedPreferences.Editor editor = MangoApplication.sharedPref.edit();
+              editor.putString(getString(R.string.saved_token), MangoApplication.current_token);
               editor.commit();
+
               // On complete call either onLoginSuccess or onLoginFailed
               onLoginSuccess();
               // onLoginFailed();

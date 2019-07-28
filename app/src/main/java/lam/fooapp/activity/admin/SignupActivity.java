@@ -11,9 +11,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import lam.fooapp.MangoApplication;
 import lam.fooapp.R;
+import lam.fooapp.communication.Communicator;
+import lam.fooapp.model.AccountRegisterFrom;
+import lam.fooapp.model.AccountRegisterResponse;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
@@ -84,19 +90,34 @@ public class SignupActivity extends AppCompatActivity {
         String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
-
+        AccountRegisterFrom form = new AccountRegisterFrom();
+        form.setEmail(email);
+        form.setUsername(name);
+        form.setPassword(password);
         // TODO: Implement your own signup logic here.
+        Communicator.DataReceiverCallback cb = new Communicator.DataReceiverCallback() {
+            @Override
+            public void onDataRecieved(String result) {
+                //MangoApplication.current_username = new Gson().fromJson(result, AccountRegisterResponse.class).userId;
+                new android.os.Handler().postDelayed(
+                        new Runnable() {
+                            public void run() {
+                                // On complete call either onSignupSuccess or onSignupFailed
+                                // depending on success
+                                onSignupSuccess();
+                                // onSignupFailed();
+                                progressDialog.dismiss();
+                            }
+                        }, 3000);
+            }
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
+            @Override
+            public void onError() {
+
+            }
+        };
+        MangoApplication.communicator.signup(form,cb);
+
     }
 
 

@@ -9,11 +9,13 @@ import io.socket.emitter.Emitter.Listener;
 import lam.fooapp.Utils.Constant;
 import lam.fooapp.Utils.Utils;
 import lam.fooapp.communication.socketio.CustomListener;
+import lam.fooapp.model.AccountRegisterFrom;
 import lam.fooapp.model.AuthenticationRequest;
 import lam.fooapp.model.EventData;
 import lam.fooapp.model.Food;
 import lam.fooapp.model.Order;
 import lam.fooapp.model.OrderForm;
+import lam.fooapp.model.RestaurantRegisterForm;
 
 
 import java.net.URISyntaxException;
@@ -30,6 +32,17 @@ public class Communicator {
 
     public void login(AuthenticationRequest authenticationRequest,Communicator.DataReceiverCallback receiver){
         foodApi.login(authenticationRequest,receiver);
+    }
+    public void signup(AccountRegisterFrom authenticationRequest, Communicator.DataReceiverCallback receiver){
+        foodApi.signup(authenticationRequest,receiver);
+    }
+
+    public void createNewRestaurant(RestaurantRegisterForm form, DataReceiverCallback cb){
+        foodApi.createNewRestaurant(form,cb);
+    }
+    public void getRestaurants(DataReceiverCallback cb){
+        System.out.println("Get restaurant List communicator");
+        foodApi.getRestaurants(cb);
     }
     public void authenticateByToken(String token, DataReceiverCallback receiver){
         foodApi.authenticate(token,receiver);

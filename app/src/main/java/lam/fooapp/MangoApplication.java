@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -21,6 +22,7 @@ import lam.fooapp.model.Account;
 import lam.fooapp.model.Food;
 import lam.fooapp.model.Order;
 import lam.fooapp.model.OrderForm;
+import lam.fooapp.model.Restaurant;
 import lam.fooapp.services.MangoService;
 
 public class MangoApplication extends Application {
@@ -28,7 +30,14 @@ public class MangoApplication extends Application {
     public static NumberFormat format = NumberFormat.getInstance();
     public static DateTimeFormatter formatter;// = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     public static Communicator communicator;// = new Communicator();
+    public static ArrayList<Restaurant> restaurants = null;
     public static Account user_account=null;
+    public static Restaurant current_restaurant = null;
+    public static String current_username= null;
+    public static String current_restaurant_id = null;
+    public static String current_token = null;
+
+
     public static OrderForm currentOrderForm = null;
     public static ArrayList<Food> currentSelectedFoods = new ArrayList<>();
     public static ArrayList<Food> foods;
@@ -36,6 +45,9 @@ public class MangoApplication extends Application {
     public static int[]orderStateColors;
     public MangoService mangoService;
     Intent mangoServiceIntent;
+
+
+    public static SharedPreferences sharedPref;
 
     @Override
     public void onCreate() {
@@ -52,6 +64,8 @@ public class MangoApplication extends Application {
         if(!isMyServiceRunning(MangoService.class))startService(mangoServiceIntent);
         System.out.println("App created");
         orderStateColors = getApplicationContext().getResources().getIntArray(R.array.order_state_colors);
+        sharedPref = getApplicationContext().getSharedPreferences(
+                getString(R.string.saved_token), Context.MODE_PRIVATE);
 
     }
     public static Double parser(String value)

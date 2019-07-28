@@ -95,6 +95,7 @@ public class FoodListFragment extends Fragment implements OrderListListenner {
                 public void run() {
                     Type listType = new TypeToken<List<Food>>(){}.getType();
                     List<Food>foodsReceived = (List<Food>)new Gson().fromJson(result,listType);
+                    if(foodsReceived==null||foodsReceived.size()==0) return;
                     foodList.addAll(foodsReceived);
                     foodListAdapter.notifyDataSetChanged();
                 }

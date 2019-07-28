@@ -300,7 +300,7 @@ public class OrderActivity extends BasicMangoActivity implements OrderListListen
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    // System.out.println("Hello, I received a response from server: "+result);
+                     System.out.println("Hello, I received a response from server: "+result);
                     Type listType = new TypeToken<List<Food>>(){}.getType();
                     List<Food>foodsReceived = (List<Food>)new Gson().fromJson(result,listType);
                     foodList.addAll(foodsReceived);

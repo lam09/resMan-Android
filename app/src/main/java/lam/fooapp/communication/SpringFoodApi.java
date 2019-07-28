@@ -15,14 +15,18 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import lam.fooapp.MangoApplication;
 import lam.fooapp.Utils.Constant;
 import lam.fooapp.communication.rests.RequestBuilder;
 import lam.fooapp.communication.rests.RestRequest;
+import lam.fooapp.model.AccountRegisterFrom;
+import lam.fooapp.model.AccountRegisterResponse;
 import lam.fooapp.model.AuthenticationRequest;
 import lam.fooapp.model.AuthenticationResponse;
 import lam.fooapp.model.Food;
 import lam.fooapp.model.Order;
 import lam.fooapp.model.OrderForm;
+import lam.fooapp.model.Restaurant;
 import lam.fooapp.model.RestaurantRegisterForm;
 
 
@@ -40,7 +44,7 @@ public class SpringFoodApi implements FoodApi {
     @Override
     public void login(final AuthenticationRequest authenticationRequest,final Communicator.DataReceiverCallback receiver) {
         new Thread(() ->{
-                String url = Constant.MAIN_SERVER_URL+"auth/signin";
+                String url = Constant.MAIN_SERVER_URL+"auth/login";
                 RestRequest restRequest = new RestRequest();
                 String jsonData = gson.toJson(authenticationRequest,AuthenticationRequest.class);
                 System.out.println("sending "+jsonData);
@@ -57,6 +61,44 @@ public class SpringFoodApi implements FoodApi {
     }
 
     @Override
+    public void signup(AccountRegisterFrom form, Communicator.DataReceiverCallback receiver) {
+        new Thread(() ->{
+            String url = Constant.MAIN_SERVER_URL+"auth/register";
+            RestRequest restRequest = new RestRequest();
+            String jsonData = gson.toJson(form,AccountRegisterFrom.class);
+            System.out.println("sending "+jsonData);
+            String result = restRequest.request(url,jsonData);
+            if(result!=null){
+                //AccountRegisterResponse res = gson.fromJson(result,AccountRegisterResponse.class);
+                receiver.onDataRecieved(result);
+            }
+            else {
+                receiver.onError();
+            }
+        }).start();
+    }
+
+    @Override
+    public void getRestaurants( Communicator.DataReceiverCallback receiver){
+        new Thread(() ->{
+            String url = Constant.MAIN_SERVER_URL+"restaurants";
+            RestRequest restRequest = new RestRequest();
+            String result = restRequest.sendRequest(url,"GET",
+                  RestRequest.Hearder.Content_Type.value,"application/json",
+                    RestRequest.Hearder.Authorization.value,MangoApplication.current_token
+            //        RestRequest.Hearder.Restaurant_id.value,MangoApplication.current_restaurant.getId()
+            );
+            if(result!=null){
+                //AccountRegisterResponse res = gson.fromJson(result,AccountRegisterResponse.class);
+                //token = res.userId;
+                receiver.onDataRecieved(result);
+            }
+            else {
+                receiver.onError();
+            }
+        }).start();
+    }
+    @Override
     public void authenticate(final String token, final Communicator.DataReceiverCallback receiver) {
         new Thread(new Runnable() {
             @Override
@@ -66,7 +108,7 @@ public class SpringFoodApi implements FoodApi {
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("GET");
                     conn.setRequestProperty("Content-Type", "application/json");
-                    conn.setRequestProperty("Authorization", "Bearer "+token);
+                    conn.setRequestProperty("Authorization", MangoApplication.current_token);
                     if (conn.getResponseCode() != 200) {
                         throw new RuntimeException("Failed : HTTP error code : "
                                 + conn.getResponseCode());
@@ -94,11 +136,11 @@ public class SpringFoodApi implements FoodApi {
             @Override
             public void run() {
                 try{
-                    URL url= new URL(Constant.MAIN_SERVER_URL+"auth/me");
+                    URL url= new URL(Constant.MAIN_SERVER_URL+"restaurant/register");
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("GET");
+                    conn.setRequestMethod("POST");
                     conn.setRequestProperty("Content-Type", "application/json");
-                    conn.setRequestProperty("Authorization", "Bearer "+token);
+                    conn.setRequestProperty("Authorization", MangoApplication.current_token);
                     if (conn.getResponseCode() != 200) {
                         throw new RuntimeException("Failed : HTTP error code : "
                                 + conn.getResponseCode());
@@ -124,7 +166,11 @@ public class SpringFoodApi implements FoodApi {
     @Override
     public String getFoodById(String id) {
         String url = Constant.MAIN_SERVER_URL+"food/get?serial="+id;
-        String result=restRequest.sendRequest(url);
+        String result=restRequest.sendRequest(url,"GET",
+        RestRequest.Hearder.Content_Type.value,"application/json",
+                RestRequest.Hearder.Authorization.value,MangoApplication.current_token,
+                RestRequest.Hearder.Restaurant_id.value,MangoApplication.current_restaurant.getId()
+        );
         if(result!=null)return result;
         else
             return null;
@@ -190,7 +236,11 @@ public class SpringFoodApi implements FoodApi {
             public void run() {
                 String url = builder.getOrderUrl(page,pageSize,orderState,null);
                 RestRequest restRequest = new RestRequest();
-                String result = restRequest.sendRequest(url);
+                String result = restRequest.sendRequest(url,"GET",
+                        RestRequest.Hearder.Content_Type.value,"application/json",
+                        RestRequest.Hearder.Authorization.value,MangoApplication.current_token,
+                        RestRequest.Hearder.Restaurant_id.value,MangoApplication.current_restaurant.getId()
+                );
                 if(result!=null)dataCallback.onDataRecieved(result);
                 else dataCallback.onError();
             }

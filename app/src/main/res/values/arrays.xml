@@ -15,6 +15,9 @@
         <item>@color/food10</item>
         <item>@color/food11</item>
     </array>
+    <array name="res_list">
+
+    </array>
     <array name="order_state_colors">
         <item>@color/all</item>
         <item>@color/waiting</item>
